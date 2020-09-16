@@ -1,0 +1,21 @@
+#Yml file to provision with Ansible. On the backupweb1 and backupweb2 VM, install 
+#apache2, copy a custom index, enable the apache2 service, restart the 
+#apache2 service, and run a test. On the Haproxy VM install haproxy, 
+#copy the haproxy.cfg file, enable the haproxy service, restart the 
+#haproxy service and perform a test.
+---
+- hosts: pweb2
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: iniciar el servicio de lxd en vm severWeb2
+      shell: sudo systemctl start lxd
+    - name: habilitar el servicio de lxd en vm severWeb2
+      shell: sudo systemctl enable lxd
+    - name: reiniciar el servicio de lxd en vm severWeb2
+      shell: sudo systemctl restart lxd
+    - name: encender contenedor web2 en en vm severWeb2
+      shell: lxc start web2
+    - name: encender contenedor backupweb2 en en vm severWeb2
+      shell: lxc start backupweb2

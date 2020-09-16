@@ -1,0 +1,39 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to deploy the containers on each VM
+#serverLoadBalancer: balancer
+#serverWeb1: web1
+#serverWeb2: web2
+---
+- hosts: phaproxy
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: desplegar contenedor balancer en la VM phaproxy
+      shell: lxc init ubuntu:18.04 balancer
+    - name: esperar 3 seg en la vm phaproxy
+      shell: sleep 3
+    - name : iniciar contenedo balancer en la vm phaproxy
+      shell: lxc start balancer
+- hosts: pweb1
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: desplegar contenedor web1 en la VM pweb1
+      shell: lxc init ubuntu:18.04 web1 --target serverWeb1
+    - name: esperar 3 seg en la vm pweb1
+      shell: sleep 3
+    - name : iniciar contenedo web1 en la vm pweb1
+      shell: lxc start web1
+- hosts: pweb2
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: desplegar contenedor web2 en la VM pweb2
+      shell: lxc init ubuntu:18.04 web2 --target serverWeb2
+    - name: esperar 3 seg en la vm pweb2
+      shell: sleep 3
+    - name : iniciar contenedor web2 en la vm pweb2
+      shell: lxc start web2

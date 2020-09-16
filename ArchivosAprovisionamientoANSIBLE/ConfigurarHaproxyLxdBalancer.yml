@@ -1,0 +1,17 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to configure Haproxy on balancer 
+#container of serverLoadBalancer VM
+---
+- hosts: phaproxy
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: eliminar el archivo 503.http
+      shell: lxc exec balancer -- rm /etc/haproxy/errors/503.http
+    - name: copiar la página personalizada al contenedor balancer a la vm serverLoadBalancer
+      shell: lxc file push /vagrant/ArchivosHaproxy/503.http balancer/etc/haproxy/errors/
+    - name: copiar el archivo de configuración haproxy.cfg al contenedor balancer a la vm serverLoadBalancer
+      shell: lxc file push /vagrant/ArchivosHaproxy/haproxy.cfg balancer/etc/haproxy/haproxy.cfg
+    - name: reiniciar el servicio de haproxy en contenedor de balancer de la vm serverLoadBalancer
+      shell: lxc exec balancer -- systemctl restart haproxy

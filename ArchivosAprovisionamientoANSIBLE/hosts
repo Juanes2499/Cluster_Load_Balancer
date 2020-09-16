@@ -1,0 +1,14 @@
+#Ansible Hosts File Configuration
+
+[parcial]
+phaproxy ansible_host=192.168.102.2
+pweb1 ansible_host=192.168.102.3
+pweb2 ansible_host=192.168.102.4
+
+[parcial:vars]
+ansible_user=remoto
+ansible_ssh_port=22
+ansible_ssh_password=1234
+ansible_ssh_private_key_file=/home/juane/.ssh/id_rsa
+ansible_sudo_password=vagrant
+ansible_become_password=1234

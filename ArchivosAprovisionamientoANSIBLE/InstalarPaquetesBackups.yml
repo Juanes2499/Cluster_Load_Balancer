@@ -1,0 +1,33 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to install the package on each 
+# backup container of each VM 
+#serverLoadBalancer: balancer: haproxy
+#serverWeb1: backupweb1: apache2
+#serverWeb2: backupweb2: apache2
+---
+- hosts: pweb1
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: installar apache2 en el contenedor backupweb1 de la vm serverbackupweb1
+      shell: lxc exec backupweb1 -- apt-get install apache2 -y
+    - name: copiar index.html al contenedor backupweb1 de la vm serverbackupweb1
+      shell: lxc file push /vagrant/Archivosbackupweb1/index.html backupweb1/var/www/html/index.html
+    - name: habilitando apache2 en el contenedor backupweb1 de la vm serverbackupweb1
+      shell: lxc exec backupweb1 -- systemctl enable apache2
+    - name: reiniciar apache2 en el contenedor backupweb1 de la vm serverbackupweb1
+      shell: lxc exec backupweb1 -- systemctl restart apache2
+- hosts: pweb2
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: installar apache2 en el contenedor backupweb2 de la vm serverbackupweb2
+      shell: lxc exec backupweb2 -- apt-get install apache2 -y
+    - name: copiar index.html al contenedor backupweb2 de la vm serverbackupweb2
+      shell: lxc file push /vagrant/Archivosbackupweb2/index.html backupweb2/var/www/html/index.html
+    - name: habilitando apache2 en el contenedor backupweb2 de la vm serverbackupweb2
+      shell: lxc exec backupweb2 -- systemctl enable apache2
+    - name: reiniciar apache2 en el contenedor backupweb2 de la vm serverbackupweb2
+      shell: lxc exec backupweb2 -- systemctl restart apache2

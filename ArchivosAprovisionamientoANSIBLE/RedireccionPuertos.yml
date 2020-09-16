@@ -1,0 +1,10 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to make a port fordwarding
+---
+- hosts: phaproxy
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: redireccionar puerto de haproxy en la vm serverLoadBalancer
+      shell: lxc config device add balancer haproxyport80balancer proxy listen=tcp:192.168.102.2:2080 connect=tcp:127.0.0.1:80

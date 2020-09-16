@@ -1,0 +1,16 @@
+HTTP/1.0 503 Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+<html>
+    <head>
+        <title>Problemas servidor</title>
+    </head>
+    <body>
+        <h1>Lo sentimos...</h1>
+        <p>Nuestros servicios no estan disponibles en el momento, estamos trabajando para restablecer los servicios</p>
+        <p>Por favor recargar la página</p>
+    </body>
+</html>
+

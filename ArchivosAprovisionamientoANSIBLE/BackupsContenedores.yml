@@ -1,0 +1,27 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to deploy the backups containers on each VM
+#serverWeb1: backupweb1
+#serverWeb2: backupweb2
+---
+- hosts: pweb1
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: desplegar contenedor backupweb1 en la VM pweb1
+      shell: lxc init ubuntu:18.04 backupweb1 --target serverWeb1
+    - name: esperar 3 seg en la vm pweb1
+      shell: sleep 3
+    - name : iniciar contenedor backupweb1 en la vm pweb1
+      shell: lxc start backupweb1
+- hosts: pweb2
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: desplegar contenedor backupweb2 en la VM pweb2
+      shell: lxc init ubuntu:18.04 backupweb2 --target serverWeb2
+    - name: esperar 3 seg en la vm pweb2
+      shell: sleep 3
+    - name : iniciar contenedor backupweb2 en la vm pweb2
+      shell: lxc start backupweb2

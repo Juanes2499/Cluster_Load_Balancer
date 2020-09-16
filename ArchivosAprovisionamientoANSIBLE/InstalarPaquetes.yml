@@ -1,0 +1,44 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to install the package on each 
+#container of each VM 
+#serverLoadBalancer: balancer: haproxy
+#serverWeb1: web1: apache2
+#serverWeb2: web2: apache2
+---
+- hosts: phaproxy
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: installar haproxy en el contenedor balancer de la vm serverLoadBalancer
+      shell: lxc exec balancer -- apt install haproxy -y
+    - name: habilitar haproxy en el contenedor balancer de la vm serverLoadBalancer
+      shell: lxc exec balancer -- systemctl enable haproxy
+    - name: reiniciar el servicio de haproxy en contenedor de balancer de la vm serverLoadBalancer
+      shell: lxc exec balancer -- systemctl restart haproxy
+- hosts: pweb1
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: installar apache2 en el contenedor web1 de la vm serverWeb1
+      shell: lxc exec web1 -- apt-get install apache2 -y
+    - name: copiar index.html al contenedor web1 de la vm serverWeb1
+      shell: lxc file push /vagrant/ArchivosWeb1/index.html web1/var/www/html/index.html
+    - name: habilitando apache2 en el contenedor web1 de la vm serverWeb1
+      shell: lxc exec web1 -- systemctl enable apache2
+    - name: reiniciar apache2 en el contenedor web1 de la vm serverWeb1
+      shell: lxc exec web1 -- systemctl restart apache2
+- hosts: pweb2
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: installar apache2 en el contenedor web2 de la vm serverWeb2
+      shell: lxc exec web2 -- apt-get install apache2 -y
+    - name: copiar index.html al contenedor web2 de la vm serverWeb2
+      shell: lxc file push /vagrant/ArchivosWeb2/index.html web2/var/www/html/index.html
+    - name: habilitando apache2 en el contenedor web2 de la vm serverWeb2
+      shell: lxc exec web2 -- systemctl enable apache2
+    - name: reiniciar apache2 en el contenedor web2 de la vm serverWeb2
+      shell: lxc exec web2 -- systemctl restart apache2

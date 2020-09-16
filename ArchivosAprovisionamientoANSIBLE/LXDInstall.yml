@@ -1,0 +1,25 @@
+#Yml file to provision with Ansible. On the serverLoadBalancer, 
+#serverWeb1 and serverWeb2 VM to install LXD
+
+---
+- hosts: pweb1
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: instalar LXD en pweb1
+      shell: sudo snap install lxd --channel=4.0/stable
+- hosts: pweb2
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: instalar LXD en pweb2
+      shell: sudo snap install lxd --channel=4.0/stable
+- hosts: phaproxy
+  remote_user: remoto
+  become_user: root
+  become: true
+  tasks:
+    - name: instalar LXD en phaproxy
+      shell: sudo snap install lxd --channel=4.0/stable
