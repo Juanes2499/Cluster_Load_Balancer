@@ -1,19 +1,20 @@
-Orden de ejecuón de los archivos de aprovisionamiento que se deben ejecutar
+Orden en que se deben ir ejecutando los archivos de aprovisionamiento.
 
-1. StartUpServidor.sh se ejecuta mediante aprovisionamiento Shell
-2. Se configura el archivo hosts de Ansible en WSL
-3. Se hace el envío de las claves id_rsa desde WSL hasta las máquinas de vagrant
-4. Se realiza pruebas de comunicación
-5. LXDInstall.yml se ejecuta mediante aprovisionamiento Ansible en WSL
-6. Se configura lxdfan0 subnet
-7. LanzarContenedores.yml se ejecuta mediante aprovisionamiento Ansible en WSL
-8. InstalarPaquetes.yml se ejecuta mediante aprovisionamiento Ansible en WSL
-9. BackupsContenedores.yml se ejecuta mediante aprovisionamiento Ansible en WSL 
-10. InstalarPaquetesBackups.yml se ejecuta mediante aprovisionamiento Ansible en WSL 
-11. RedireccionPuertos.yml se ejecuta mediante aprovisionamiento Ansible en WSL 
-12. ConfigurarHaproxyLxdBalancer.yml se ejecuta mediante aprovisionamiento Ansible en WSL 
+1. StartUpServidor.sh se ejecuta mediante aprovisionamiento Shell.
+2. Se configura el archivo hosts de Ansible en WSL.
+3. Se hace el envío de las claves id_rsa desde WSL hasta las máquinas de vagrant.
+4. Se realiza pruebas de comunicación.
+5. LXDInstall.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
+6. Se configura el cluster
+7. LanzarContenedores.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
+8. Se configura lxdfan0 subnet.
+9. InstalarPaquetes.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
+10. BackupsContenedores.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
+11. InstalarPaquetesBackups.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
+12. RedireccionPuertos.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
+13. ConfigurarHaproxyLxdBalancer.yml se ejecuta mediante aprovisionamiento Ansible en WSL.
 
 Recomendaciones
-1. Cada vez que se enciendan las máquinas ejectutar los archivos EncerderLxd(.....).yml que se ejecuta mediante aprovisionamiento Ansible en WSL
-2. para detener los contenedores ejecitar el archivo ApagarContenedores.yml que se ejecuta mediante aprovisionamiento Ansible en WSL
-3. para Encender los contenedores ejecitar el archivo EncenderContenedores.yml que se ejecuta mediante aprovisionamiento Ansible en WSL
+1. Cada vez que se enciendan las máquinas ejecutar los archivos EncerderLxd(.....).yml que se ejecuta mediante aprovisionamiento Ansible en WSL
+2. para detener los contenedores ejecutar el archivo ApagarContenedores.yml que se ejecuta mediante aprovisionamiento Ansible en WSL
+3. para Encender los contenedores ejecutar el archivo EncenderContenedores.yml que se ejecuta mediante aprovisionamiento Ansible en WSL
